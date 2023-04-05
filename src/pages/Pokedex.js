@@ -154,7 +154,7 @@ function activatePopUp(pokemonData, isOpen) {
   return (
     <div id="popUpContent">
       <div id="pokeInfoBox">
-        <span>#{isOpen}</span>
+        <div id="infoId">#{isOpen}</div>
         <h1>{name}</h1>
         <p className="pokeText">
           <b>Height:</b> {height} decimeters
