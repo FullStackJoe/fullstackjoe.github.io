@@ -1,13 +1,385 @@
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+}
+
+#types {
+  display: flex;
+  margin-top: 11px;
+}
+
+#fire,
+#water,
+#poison,
+#grass,
+#flying,
+#fighting,
+#electric,
+#ground,
+#rock,
+#psychic,
+#ice,
+#bug,
+#ghost,
+#steel,
+#dragon,
+#dark,
+#fairy,
+#normal {
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  margin-left: 10px;
+}
+
+#fire {
+  background-color: rgb(219, 64, 64);
+}
+
+#normal {
+  background-color: rgb(190, 246, 174);
+}
+
+#water {
+  background-color: rgb(74, 144, 225);
+}
+
+#poison {
+  background-color: rgba(85, 244, 165, 0.998);
+}
+
+#grass {
+  background-color: rgba(0, 130, 65, 0.998);
+}
+
+#flying {
+  background-color: rgba(10, 66, 156, 0.998);
+}
+#fighting {
+  background-color: rgba(88, 196, 113, 0.998);
+}
+#electric {
+  background-color: rgba(208, 214, 20, 0.998);
+}
+#ground {
+  background-color: rgba(100, 74, 43, 0.998);
+}
+#rock {
+  background-color: rgba(124, 125, 128, 0.998);
+}
+#psychic {
+  background-color: rgba(222, 140, 78, 0.998);
+}
+#ice {
+  background-color: rgba(102, 225, 237, 0.998);
+}
+#bug {
+  background-color: rgba(99, 118, 203, 0.998);
+}
+#ghost {
+  background-color: rgba(193, 212, 215, 0.998);
+}
+#steel {
+  background-color: rgba(114, 123, 137, 0.998);
+}
+#dragon {
+  background-color: rgba(161, 92, 92, 0.998);
+}
+#dark {
+  background-color: rgba(0, 0, 0, 0.998);
+}
+#fairy {
+  background-color: rgba(240, 76, 207, 0.998);
+}
+
+.nav {
+  background-color: dimgray;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+  padding: 0 1rem;
+}
+
+.site-title {
+  font-size: 2.5rem;
+}
+
+.site-link {
+  font-size: 1.4rem;
+}
+
+.nav ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+}
+
+.nav a {
+  color: inherit;
+  text-decoration: none;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 1.25rem;
+}
+
+.nav li:hover {
+  cursor: pointer;
+  margin-top: -1px;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.nav a.active {
+  background-color: #555;
+}
+.about {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
+  width: 700px;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+#pokeCard {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 30px;
+  width: 370px;
+  height: 121px;
+  border-radius: 25px;
+  background: #6dad6d;
+  padding: 20px;
+  box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px,
+    rgba(17, 17, 26, 0.05) 0px 8px 32px;
+  -webkit-transition: margin 0.1s ease-out;
+  -moz-transition: margin 0.1s ease-out;
+  -o-transition: margin 0.1s ease-out;
+}
+
+#pokeCard:hover {
+  cursor: pointer;
+  margin-top: 28px;
+}
+
+#pokeInfo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 10px;
+  padding-top: 0px;
+}
+
+#pokeName {
+  color: white;
+  font-size: 2em;
+}
+
+#pokeID {
+  font-size: 1.1rem;
+}
+
+#pokeName,
+#pokeInfo,
+p,
+h3 {
+  margin: 0px;
+}
+
+#pokeIMG {
+  height: auto;
+}
+
+#pokeRow {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* .item must be first */
+.item {
+  align-items: center;
+  color: #000000;
+  cursor: pointer;
+  display: flex;
+  font-size: 14px;
+  height: 100%;
+  justify-content: center;
+  width: 40px;
+}
+.disabled-page {
+  color: #808e9b;
+}
+
+.pagination-page {
+  font-weight: 700;
+}
+
+.actively {
+  font-weight: bolder;
+  font-size: 1.7rem;
+}
+
+.next {
+  border-left: solid 1px #000000;
+  font-size: 1.7rem;
+  height: 50px;
+  position: absolute;
+  right: 0;
+  width: 150px;
+}
+
+.pagination {
+  align-items: center;
+  border: 1px solid black;
+  display: flex;
+  flex-direction: row;
+  height: 50px;
+  justify-content: center;
+  list-style-type: none;
+  position: relative;
+  width: 700px;
+}
+
+.previous {
+  border-right: solid 1px #000000;
+  font-size: 1.7rem;
+  height: 50px;
+  left: 0;
+  position: absolute;
+  width: 150px;
+}
+
+.pageLink {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+/* POPUP STYLING */
+
+.popup-box {
+  position: fixed;
+  background-color: #47414190;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+}
+
+.box {
+  position: relative;
+  width: 50%;
+  min-height: 300px;
+  max-height: 500px;
+  background-color: #fff;
+  border: 1px solid #999;
+  border-radius: 4px;
+  margin: 10vh auto;
+  overflow: auto;
+  padding-left: 50px;
+  padding-bottom: 40px;
+  padding-right: 40px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 60px 40px -7px;
+}
+
+.btn-close {
+  cursor: pointer;
+  border: 1px solid #999;
+  border-radius: 50%;
+  position: fixed;
+  right: calc(25% - 10px);
+  top: 9.3vh;
+}
+
+#popUpContent {
+  display: flex;
+  margin-top: 20px;
+}
+
+#pokePicture {
+  height: auto;
+  width: auto;
+  margin-left: auto;
+}
+
+.pokeText {
+  margin-top: 30px;
+  font-size: 1.5rem;
+}
+
+#infoPicture {
+  height: 300px;
+  padding-top: 70px;
+}
+
+.typeInfo {
+  margin: 5px;
+  display: inline-block;
+  border: 1px solid black;
+}
+
+#infoTypeName {
+  position: relative;
+  bottom: 9px;
+}
+
+#pokeInfoBox ul {
+  list-style: none;
+  padding: 0px;
+}
+
+#pokeInfoBox div {
+  margin-left: 0;
+}
+
+.popup-box {
+  display: flex;
+}
+
+#btn-nxt {
+  display: flex;
+  align-items: center;
+  position: relative;
+  right: 250px;
+  top: -10vh;
+  cursor: pointer;
+}
+
+#btn-back {
+  display: flex;
+  align-items: center;
+  position: relative;
+  top: -10vh;
+  left: 250px;
+  cursor: pointer;
 }
