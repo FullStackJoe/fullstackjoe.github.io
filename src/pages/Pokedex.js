@@ -2,10 +2,12 @@ import { useState, useEffect } from "react";
 import ReactPaginate from "react-paginate";
 import Popup from "./Popup";
 
+// Returns a given string with first letter capitalized
 function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
+// Card Widget - Mark up and information regarding the pokemens in the pokedex
 function Card(id, name, img, typeOne, typeTwo, handleClick) {
   return (
     <div id="pokeCard" onClick={() => handleClick(id)}>
@@ -29,7 +31,9 @@ function Card(id, name, img, typeOne, typeTwo, handleClick) {
   );
 }
 
+// Pokedex Widget with all the cards
 function PokeDex({ currentPokemons, handleClick }) {
+  // Checks if any pokemons is loaded
   if (!(currentPokemons === null)) {
     const listItems = currentPokemons.map((pokemon, i) => {
       let typeOne = "";
@@ -58,12 +62,14 @@ function PokeDex({ currentPokemons, handleClick }) {
   }
 }
 
+// Function to load data from the API
 async function getData(func, offset, limit, pokemonData) {
   fetch(
     "https://pokeapi.co/api/v2/pokemon?limit=" + limit + "&offset=" + offset
   )
     .then((response) => response.json())
     .then(async (data) => {
+      // Read the data about reach pokemon into an array
       const pokemons = data.results;
       for (const pokemon of pokemons) {
         pokemon.data = await fetch(pokemon.url).then((res) => res.json());
@@ -77,6 +83,7 @@ async function getData(func, offset, limit, pokemonData) {
     });
 }
 
+// Controlling the pagination
 function PaginatedItems({
   itemsPerPage,
   items,
@@ -90,19 +97,18 @@ function PaginatedItems({
     const currentItems = items.slice(itemOffset, endOffset);
     const pageCount = Math.ceil(items.length / itemsPerPage);
 
+    // Handling loading of new pokemons when going through the pages
     const handlePageClick = (event) => {
       const newOffset = (event.selected * itemsPerPage) % items.length;
-      if (newOffset + 27 > items.length) {
-        let amount = 9;
-        if (newOffset + 9 === items.length) {
-          console.log("Woho");
-          amount = 18;
+      // When fewer than the next 36 pokemons are loaded, 12 more pokemons are loaded (1 page).
+      if (newOffset + 36 > items.length) {
+        let amount = 12;
+        // When fewer than the next 12 pokemons are loaded, 24 more pokemons are loaded (2 pages).
+        if (newOffset + 12 === items.length) {
+          amount = 24;
         }
         getData(setPokemonData, items.length, amount, items);
       }
-      console.log(
-        `User requested page number ${event.selected}, which is offset ${newOffset}`
-      );
       setItemOffset(newOffset);
     };
 
@@ -131,6 +137,7 @@ function PaginatedItems({
   }
 }
 
+// Pop-up widget with markup and insertion of data into the pop-up.
 function activatePopUp(pokemonData, isOpen) {
   let index = isOpen - 1;
   let name = capitalizeFirstLetter(pokemonData[index].name);
@@ -191,13 +198,13 @@ export default function Pokedex() {
   }
 
   useEffect(() => {
-    getData(setPokemonData, 0, 18, pokemonData);
+    getData(setPokemonData, 0, 24, pokemonData);
   }, []);
 
   return (
     <>
       <PaginatedItems
-        itemsPerPage={9}
+        itemsPerPage={12}
         items={pokemonData}
         itemOffset={itemOffset}
         setItemOffset={setItemOffset}
