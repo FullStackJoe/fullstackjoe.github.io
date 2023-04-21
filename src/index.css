@@ -7,7 +7,7 @@ body {
 }
 
 #loadingDiv {
-  display: flex;
+  text-align: center;
   margin-top: 500px;
 }
 

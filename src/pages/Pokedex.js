@@ -129,7 +129,7 @@ function PaginatedItems({
           nextLabel="Next >"
           onPageChange={handlePageClick}
           pageRangeDisplayed={4}
-          pageCount={pageCount + 1}
+          pageCount={pageCount}
           renderOnZeroPageCount={null}
           activeClassName={"item actively "}
           containerClassName={"pagination"}
@@ -215,7 +215,12 @@ export default function Pokedex() {
 
   return (
     <>
-      {isLoading && <div id="loadingDiv">CATHING POKEMONS IN THE WILD...</div>}
+      {isLoading && (
+        <div id="loadingDiv">
+          CATCHING POKEMONS IN THE WILD... <br />
+          WAIT A SEC
+        </div>
+      )}
       <PaginatedItems
         itemsPerPage={12}
         items={pokemonData}
