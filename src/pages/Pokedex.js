@@ -63,7 +63,14 @@ function PokeDex({ currentPokemons, handleClick }) {
 }
 
 // Function to load data from the API
-async function getData(func, offset, limit, pokemonData) {
+async function getData(
+  func,
+  offset,
+  limit,
+  pokemonData,
+  loadingFunc = () => {}
+) {
+  loadingFunc(true);
   fetch(
     "https://pokeapi.co/api/v2/pokemon?limit=" + limit + "&offset=" + offset
   )
@@ -79,6 +86,7 @@ async function getData(func, offset, limit, pokemonData) {
         func(array);
       } else {
         func(pokemons);
+        loadingFunc(false);
       }
     });
 }
@@ -121,7 +129,7 @@ function PaginatedItems({
           nextLabel="Next >"
           onPageChange={handlePageClick}
           pageRangeDisplayed={4}
-          pageCount={pageCount}
+          pageCount={pageCount + 1}
           renderOnZeroPageCount={null}
           activeClassName={"item actively "}
           containerClassName={"pagination"}
@@ -140,6 +148,8 @@ function PaginatedItems({
 // Pop-up widget with markup and insertion of data into the pop-up.
 function activatePopUp(pokemonData, isOpen) {
   let index = isOpen - 1;
+
+  // Declaring variables with data from the API on a given pokemon
   let name = capitalizeFirstLetter(pokemonData[index].name);
   let height = pokemonData[index].data.height;
   let weight = pokemonData[index].data.weight;
@@ -147,6 +157,7 @@ function activatePopUp(pokemonData, isOpen) {
   let img = pokemonData[index].data.sprites.front_shiny;
   let types = pokemonData[index].data.types;
 
+  // List widget for the pop-up
   let typeList = types.map((x, index) => (
     <li>
       <div
@@ -188,6 +199,7 @@ export default function Pokedex() {
   const [pokemonData, setPokemonData] = useState(null);
   const [itemOffset, setItemOffset] = useState(0);
   const [isOpen, setIsOpen] = useState();
+  const [isLoading, setIsLoading] = useState(false);
 
   function togglePopup(id) {
     if (isOpen == true) {
@@ -198,11 +210,12 @@ export default function Pokedex() {
   }
 
   useEffect(() => {
-    getData(setPokemonData, 0, 24, pokemonData);
+    getData(setPokemonData, 0, 24, pokemonData, setIsLoading);
   }, []);
 
   return (
     <>
+      {isLoading && <div id="loadingDiv">CATHING POKEMONS IN THE WILD...</div>}
       <PaginatedItems
         itemsPerPage={12}
         items={pokemonData}

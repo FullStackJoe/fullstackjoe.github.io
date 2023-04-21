@@ -6,6 +6,11 @@ body {
   margin: 0;
 }
 
+#loadingDiv {
+  display: flex;
+  margin-top: 500px;
+}
+
 #types {
   display: flex;
   margin-top: 11px;
