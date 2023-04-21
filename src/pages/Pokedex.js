@@ -63,13 +63,7 @@ function PokeDex({ currentPokemons, handleClick }) {
 }
 
 // Function to load data from the API
-async function getData(
-  func,
-  offset,
-  limit,
-  pokemonData,
-  loadingFunc = () => {}
-) {
+async function getData(func, offset, limit, pokemonData, loadingFunc) {
   loadingFunc(true);
   fetch(
     "https://pokeapi.co/api/v2/pokemon?limit=" + limit + "&offset=" + offset
@@ -86,8 +80,8 @@ async function getData(
         func(array);
       } else {
         func(pokemons);
-        loadingFunc(false);
       }
+      loadingFunc(false);
     });
 }
 
@@ -99,6 +93,7 @@ function PaginatedItems({
   setItemOffset,
   setPokemonData,
   handleClick,
+  loadingFunc,
 }) {
   if (!(items === null)) {
     const endOffset = itemOffset + itemsPerPage;
@@ -115,7 +110,7 @@ function PaginatedItems({
         if (newOffset + 12 === items.length) {
           amount = 24;
         }
-        getData(setPokemonData, items.length, amount, items);
+        getData(setPokemonData, items.length, amount, items, loadingFunc);
       }
       setItemOffset(newOffset);
     };
@@ -215,12 +210,6 @@ export default function Pokedex() {
 
   return (
     <>
-      {isLoading && (
-        <div id="loadingDiv">
-          CATCHING POKEMONS IN THE WILD... <br />
-          WAIT A SEC
-        </div>
-      )}
       <PaginatedItems
         itemsPerPage={12}
         items={pokemonData}
@@ -228,7 +217,14 @@ export default function Pokedex() {
         setItemOffset={setItemOffset}
         setPokemonData={setPokemonData}
         handleClick={togglePopup}
+        loadingFunc={setIsLoading}
       />
+      {isLoading && (
+        <div id="loadingDiv">
+          CATCHING POKEMONS IN THE WILD... <br />
+          WAIT A SEC
+        </div>
+      )}
       {isOpen && (
         <Popup
           handleClose={() => togglePopup(null)}
